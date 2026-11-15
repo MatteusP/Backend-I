@@ -46,3 +46,30 @@ exports.sobre = function (req, res) {
     menuSobre: true,
   });
 };
+
+exports.pesquisaGet = function (req, res) {
+  res.render('pesquisa', {
+    tituloPagina: 'Pesquisa de Oficinas',
+    menuPesquisa: true,
+    pesquisou: false,
+    termo: '',
+    resultados: [],
+  });
+};
+
+exports.pesquisaPost = async function (req, res, next) {
+  try {
+    const termo = (req.body.termo || '').trim();
+    const resultados = await oficinaMemoria.pesquisar(termo);
+
+    res.render('pesquisa', {
+      tituloPagina: 'Pesquisa de Oficinas',
+      menuPesquisa: true,
+      pesquisou: true,
+      termo,
+      resultados,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
