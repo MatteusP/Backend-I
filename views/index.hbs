@@ -1,2 +1,76 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<h1 class="mb-3">Oficinas cadastradas</h1>
+
+<p class="mb-3">
+  <span class="me-3">Total de oficinas: <strong>{{resumo.total}}</strong></span>
+  <span class="me-3">Abertas: <strong>{{resumo.abertas}}</strong></span>
+  <span class="me-3">Encerradas: <strong>{{resumo.encerradas}}</strong></span>
+  <span>Carga horária das abertas: <strong>{{resumo.cargaHorariaAbertas}} h</strong></span>
+</p>
+
+<ul class="nav nav-pills mb-3">
+  <li class="nav-item">
+    <a class="nav-link {{#unless filtroAbertas}}active{{/unless}}" href="/">Todas as Oficinas</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link {{#if filtroAbertas}}active{{/if}}" href="/abertas">Inscrições Abertas</a>
+  </li>
+</ul>
+
+{{#if resumo.total}}
+  {{#if nenhumaAberta}}
+    <p class="mb-3">Nenhuma oficina está com inscrições abertas</p>
+  {{else}}
+    <table class="table table-hover align-middle">
+      <thead class="table-primary text-center">
+        <tr>
+          <th>Título</th>
+          <th>Carga horária</th>
+          <th>Inscrições</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each oficinas}}
+          <tr>
+            <td><strong>{{titulo}}</strong></td>
+            <td class="text-center">{{cargaHoraria}} h</td>
+            <td class="text-center">
+              {{#if inscricoesAbertas}}Abertas{{else}}Encerradas{{/if}}
+            </td>
+            <td class="text-center">
+              <a href="/oficinas/consulta/{{id}}" class="btn btn-primary btn-sm me-1">Consultar</a>
+              <a href="/oficinas/editar/{{id}}" class="btn btn-primary btn-sm me-1">Editar</a>
+              <button type="button" class="btn btn-danger btn-sm me-1" data-bs-toggle="modal" data-bs-target="#modalExcluir{{id}}">Excluir</button>
+              <a href="/oficinas/situacao/{{id}}" class="btn btn-outline-primary btn-sm">
+                {{#if inscricoesAbertas}}Encerrar{{else}}Reabrir{{/if}}
+              </a>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+
+    {{#each oficinas}}
+      <div class="modal fade" id="modalExcluir{{id}}" tabindex="-1" aria-labelledby="tituloModalExcluir{{id}}" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="tituloModalExcluir{{id}}">Excluir oficina</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+              Confirma a exclusão de <strong>{{titulo}}</strong>?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <a href="/oficinas/excluir/{{id}}" class="btn btn-danger">Confirmar</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+  {{/if}}
+{{else}}
+  <p class="mb-3">Nenhuma oficina cadastrada.</p>
+  <a href="/oficinas/nova" class="btn btn-primary">Cadastrar a primeira oficina</a>
+{{/if}}
