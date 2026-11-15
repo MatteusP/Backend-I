@@ -1,10 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
   <head>
-    <title>{{title}}</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{tituloPagina}}</title>
+    <link rel="stylesheet" href="/stylesheets/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
   </head>
   <body>
-    {{{body}}}
+    <div class="container mt-3 mb-4">
+      <ul class="nav nav-pills nav-fill mb-4">
+        <li class="nav-item">
+          <a class="nav-link {{#if menuInicio}}active{{/if}}" href="/">Início</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {{#if menuSobre}}active{{/if}}" href="/sobre">Sobre</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {{#if menuNova}}active{{/if}}" href="/oficinas/nova">Nova Oficina</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {{#if menuPesquisa}}active{{/if}}" href="/pesquisa">Pesquisa</a>
+        </li>
+      </ul>
+
+      {{{body}}}
+    </div>
+
+    <script src="/javascripts/bootstrap/bootstrap.bundle.min.js"></script>
   </body>
 </html>
