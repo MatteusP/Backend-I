@@ -1,0 +1,33 @@
+<h1 class="mb-3">Consulta de Oficina</h1>
+
+<p class="mb-2">
+  <strong>ID</strong><br />
+  {{oficina.id}}
+</p>
+
+<p class="mb-2">
+  <strong>Título</strong><br />
+  {{oficina.titulo}}
+</p>
+
+<p class="mb-2">
+  <strong>Responsável</strong><br />
+  {{oficina.responsavel}}
+</p>
+
+<p class="mb-2">
+  <strong>Carga horária total</strong><br />
+  {{oficina.cargaHoraria}} h
+</p>
+
+<p class="mb-2">
+  <strong>Inscrições</strong><br />
+  {{#if oficina.inscricoesAbertas}}Abertas{{else}}Encerradas{{/if}}
+</p>
+
+<div class="mb-4">
+  <p class="mb-1"><strong>Descrição</strong></p>
+  <pre>{{oficina.descricao}}</pre>
+</div>
+
+<a href="/oficinas/editar/{{oficina.id}}" class="btn btn-primary">Editar</a>
